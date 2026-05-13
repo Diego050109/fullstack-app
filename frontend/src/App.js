@@ -12,7 +12,7 @@ function App() {
 
   return (
     <div style={{ padding: "30px" }}>
-      <h1>Frontend React - Cambio de prueba</h1>
+      <h1>Frontend React - Cambio de prueba1</h1>
       <p>{mensaje}</p>
     </div>
   );
