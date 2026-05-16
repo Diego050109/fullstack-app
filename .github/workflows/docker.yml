@@ -1,0 +1,39 @@
+name: Docker Build
+
+on:
+  push:
+    branches:
+      - dev
+      - qa
+      - production
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Login Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build frontend DEV
+        if: github.ref_name == 'dev'
+        run: |
+          docker build -t ddiego24/frontend-app:dev ./frontend
+          docker push ddiego24/frontend-app:dev
+
+      - name: Build frontend QA
+        if: github.ref_name == 'qa'
+        run: |
+          docker build -t ddiego24/frontend-app:qa ./frontend
+          docker push ddiego24/frontend-app:qa
+
+      - name: Build frontend PROD
+        if: github.ref_name == 'production'
+        run: |
+          docker build -t ddiego24/frontend-app:production ./frontend
+          docker push ddiego24/frontend-app:production
