@@ -20,20 +20,44 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      # FRONTEND DEV
       - name: Build frontend DEV
         if: github.ref_name == 'dev'
         run: |
           docker build -t ddiego24/frontend-app:dev ./frontend
           docker push ddiego24/frontend-app:dev
 
+      # FRONTEND QA
       - name: Build frontend QA
         if: github.ref_name == 'qa'
         run: |
           docker build -t ddiego24/frontend-app:qa ./frontend
           docker push ddiego24/frontend-app:qa
 
+      # FRONTEND PRODUCTION
       - name: Build frontend PROD
         if: github.ref_name == 'production'
         run: |
           docker build -t ddiego24/frontend-app:production ./frontend
           docker push ddiego24/frontend-app:production
+
+      # BACKEND DEV
+      - name: Build backend DEV
+        if: github.ref_name == 'dev'
+        run: |
+          docker build -t ddiego24/backend-app:dev ./backend
+          docker push ddiego24/backend-app:dev
+
+      # BACKEND QA
+      - name: Build backend QA
+        if: github.ref_name == 'qa'
+        run: |
+          docker build -t ddiego24/backend-app:qa ./backend
+          docker push ddiego24/backend-app:qa
+
+      # BACKEND PRODUCTION
+      - name: Build backend PROD
+        if: github.ref_name == 'production'
+        run: |
+          docker build -t ddiego24/backend-app:production ./backend
+          docker push ddiego24/backend-app:production
